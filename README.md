@@ -21,10 +21,7 @@ onto your *own* Render account — your data, your bill (Render's free tier is e
 shop's sync traffic, though it has real limits — see the note below), nothing for you to
 maintain beyond occasionally checking it's still running.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=<your-repo-url>)
-
-*(The button needs this code sitting in a public GitHub repo before it'll actually work — see
-"Publishing this for the button to work" below if you're setting this up for the first time.)*
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/gramowatt1/gramobiz-sync-server)
 
 **Run your own server already, or want full control?** Use Docker Compose — works on a spare shop
 PC, an office server, a VPS you already pay for, anything with Docker installed. See "Running with
@@ -74,13 +71,6 @@ curl -X POST https://your-server-url/v1/stores/register \
 Returns `{ storeId, name, apiToken, createdAt }` — paste the URL and `apiToken` into the till's
 **Settings → Self-Hosted Sync Server**. Repeat for each additional till/store — they'll all share
 the same catalog and staff roster from then on.
-
-## Publishing this for the button to work
-
-The "Deploy to Render" button only works once this `sync-server/` directory lives in a public (or
-Render-connected private) GitHub repository, since that's what Render actually deploys from. If
-you're setting this up for the first time: create a repo, push this folder to it, then replace
-`<your-repo-url>` in this README's button link with the real repo URL.
 
 ## Running locally, for development
 
