@@ -41,7 +41,7 @@ not because one is more "real" than the other.
 
 **Render's free tier, honestly:** the free web service goes to sleep after 15 minutes of no
 traffic and takes a few seconds to wake back up on the next request (your till's sync just waits
-a moment longer that one time — nothing breaks), and the free Postgres database expires after 90
+a moment longer that one time — nothing breaks), and the free Postgres database expires after 30
 days unless you attach a card or upgrade. Fine for trying this out; for daily real use, Render's
 cheapest paid tier (a few dollars/month) removes both limits.
 
