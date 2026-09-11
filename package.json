@@ -1,0 +1,30 @@
+{
+  "name": "gramobiz-sync-server",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Self-hostable catalog/staff sync server for the Dami Prime POS till app — the same sync protocol Gramobiz's own hosted Cloud Sync & Web Access uses, packaged small enough to run entirely on infrastructure a customer owns and controls themselves.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -b",
+    "start": "node dist/server.js",
+    "typecheck": "tsc -b --noEmit",
+    "test": "vitest run",
+    "migrate": "tsx src/db/migrate.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "fastify": "^4.28.1",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "@types/pg": "^8.11.10",
+    "tsx": "^4.19.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
+  }
+}

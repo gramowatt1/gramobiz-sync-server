@@ -1,0 +1,41 @@
+# Runs the sync server plus its own Postgres, entirely on whatever machine you run this on —
+# a spare shop PC, an office server, a VPS you already pay for, anything with Docker installed.
+#
+# Quick start:
+#   1. Copy .env.example to .env and set SETUP_KEY (POSTGRES_PASSWORD can stay as-is, or change it).
+#   2. docker compose up -d
+#   3. Register your first till (see README.md's "Registering your first till").
+#
+# Data persists in the `postgres-data` volume across restarts — back that up the same way you'd
+# back up any other database you're responsible for.
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gramobiz_sync
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  sync-server:
+    build: .
+    restart: unless-stopped
+    ports:
+      - '4100:4100'
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/gramobiz_sync
+      PORT: 4100
+      SETUP_KEY: ${SETUP_KEY:?SETUP_KEY must be set in .env — see .env.example}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres-data:
